@@ -81,6 +81,8 @@ public class GameMenager : MonoBehaviour
 
     public void RestarGame()
     {
+        Grid.CleanGrid();
+        Snake.CleanSnake();
         panelGameOver.SetActive(false);
         panelGameUp.SetActive(true);
     }
@@ -90,6 +92,7 @@ public class GameMenager : MonoBehaviour
         SnakeMovement.GameRun = false;
         canvas.SetActive(true);
         panelGameOver.SetActive(true);
+        SnakeMovement.GameOver();
     }
 
 }

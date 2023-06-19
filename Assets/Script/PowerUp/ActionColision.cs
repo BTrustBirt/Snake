@@ -13,7 +13,11 @@ public abstract class ActionColision : MonoBehaviour
     {
         gameMenager = gameRef;
         gameMenager.Grid.AddToGrid(new Vector2Int((int)transform.position.x, (int)transform.position.y), this.gameObject);
-        particleSystem.Stop();
+
+        if (particleSystem != null)
+        {
+            particleSystem.Stop();
+        }
     }
 
     public abstract void Use();
