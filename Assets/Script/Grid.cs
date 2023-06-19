@@ -6,12 +6,15 @@ public class Grid : MonoBehaviour
 {
     private int countGrid;
 
-    [field: SerializeField]
-    public int gridSize
+
+    private int gridSize;
+
+    public int GridSize
     {
-        get;
-        private set;
+        get { return gridSize; }
+        set { gridSize = value; }
     }
+
 
     private GameMenager gameMenager;
 

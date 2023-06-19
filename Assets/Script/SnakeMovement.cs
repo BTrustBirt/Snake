@@ -34,7 +34,8 @@ public class SnakeMovement : MonoBehaviour
 
     private void Start()
     {
-        snake = GetComponent<Snake>();
+        snake = gameObject.GetComponent<Snake>();
+        grid = gameObject.GetComponent<Grid>();
     }
 
     private void ChangePosition(Vector2Int position)
