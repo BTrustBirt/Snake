@@ -46,6 +46,7 @@ public class Snake : MonoBehaviour
     {
         GameObject tempGameObiect = Instantiate(snakeBodyPrefab, transform, Quaternion.identity);
         snakeBody.Add(tempGameObiect);
+        gameMenager.CameraFallow(tempGameObiect.transform);
     }
 
     public GameObject GetPositionGameObiectFromGrid()

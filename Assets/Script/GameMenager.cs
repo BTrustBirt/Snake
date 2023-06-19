@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -25,6 +26,9 @@ public class GameMenager : MonoBehaviour
 
     [SerializeField]
     private GameObject panelGameUp;
+
+    [SerializeField]
+    private CinemachineVirtualCamera camera;
 
     private void Start()
     {
@@ -77,6 +81,11 @@ public class GameMenager : MonoBehaviour
         canvas.SetActive(false);
 
         SnakeMovement.StartGame();
+    }
+
+    public void CameraFallow(Transform fallowTransform)
+    {
+        camera.Follow = fallowTransform;
     }
 
     public void RestarGame()
