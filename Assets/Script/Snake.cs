@@ -72,10 +72,7 @@ public class Snake : MonoBehaviour
         grid.ChcekGridPosition(ConwertToVector2Init(movePosition));
 
         Vector2 prevPosition = snakeBody[0].transform.position;
-        //if (snakeBody == null)
-        //{
-        //    return;
-        //}
+        
         for (int i = 0; i < snakeBody.Count; i++)
         {
             if (i == 0)
@@ -102,7 +99,6 @@ public class Snake : MonoBehaviour
             grid.AddToGrid(ConwertToVector2Init(prevPosition), tempGameObject);
             tempGameObject.GetComponent<ActionColision>().GetRef(gameMenager);
         }
-
 
         if (destroyTail && snakeBody.Count > 1)
         {
