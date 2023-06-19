@@ -38,6 +38,10 @@ public class SnakeMovement : MonoBehaviour
         grid = gameObject.GetComponent<Grid>();
     }
 
+
+    /// <summary>
+    /// Function that changes the position of the snake on the board if it goes beyond its boundaries.
+    /// </summary> 
     private void ChangePosition(Vector2Int position)
     {
         if (position.x == -1)
@@ -61,6 +65,9 @@ public class SnakeMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Function that checks if the new snake position is within the board boundaries
+    /// </summary>
     private bool ChceckPositionInGrid(Vector2Int nextPosition)
     {
         if (nextPosition.x < 0 || nextPosition.x >= grid.GetGridSize() || nextPosition.y < 0 || nextPosition.y >= grid.GetGridSize())
@@ -73,6 +80,10 @@ public class SnakeMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Function that checks if the new movement direction is opposite to
+    /// the previous one and updates the direction accordingly.
+    /// </summary>
     private void CheckOldPosition()
     {
         if (oldDirection == -newDirection)
@@ -87,7 +98,10 @@ public class SnakeMovement : MonoBehaviour
         oldDirection = newDirection;
     }
 
-    private IEnumerator ExampleCoroutine()
+    /// <summary>
+    /// Enumerator for the game loop, performs snake movement and waits for a specified time.
+    /// </summary>
+    private IEnumerator GameCoroutine()
     {
         while (gameRun)
         {
@@ -103,6 +117,9 @@ public class SnakeMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Function that executes the snake's movement based on the current direction.
+    /// </summary>
     private void Move()
     {
         var temp = snake.GetSnakHeadPosition();
@@ -119,6 +136,10 @@ public class SnakeMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Function called every game frame, checks for pressed keys and
+    /// sets the new movement direction accordingly.
+    /// </summary>
     private void Update()
     {
         if (!Input.anyKey || !gameRun)
@@ -150,17 +171,15 @@ public class SnakeMovement : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            snake.addTail = true;
-        }
-
         CheckOldPosition();
     }
 
+    /// <summary>
+    ///  Function that starts the game, runs GameCoroutine() and sets the gameRun flag to true.
+    /// </summary>
     public void StartGame()
     {
-        carutinGame = ExampleCoroutine();
+        carutinGame = GameCoroutine();
         gameRun = true;
 
         StartCoroutine(carutinGame);
@@ -172,8 +191,11 @@ public class SnakeMovement : MonoBehaviour
         set { gameRun = value; }
     }
 
+    /// <summary>
+    /// unction that ends the game, stops the GameCoroutine().
+    /// </summary>
     public void GameOver()
     {
-        StopCoroutine(ExampleCoroutine());
+        StopCoroutine(GameCoroutine());
     }
 }

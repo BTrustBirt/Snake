@@ -31,6 +31,9 @@ public class Grid : MonoBehaviour
         gameMenager= GetComponent<GameMenager>();
     }
 
+    /// <summary>
+    /// Private function that spawns a game object at a random unoccupied grid position.
+    /// </summary>
     private void SpawnObject()
     {
         int randx = Random.Range(0, spawnObjeck.Length);
@@ -57,6 +60,9 @@ public class Grid : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Public function that checks the grid position for any collision and triggers the associated action.
+    /// </summary>
     public void ChcekGridPosition(Vector2Int position)
     {
         ActionColision tempAction;
@@ -69,37 +75,42 @@ public class Grid : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Public function that adds a game object to the grid at the specified grid position.
+    /// </summary>
     public void AddToGrid(Vector2Int positionGrig, GameObject snakeTransform)
     {
         grid[positionGrig.x, positionGrig.y] = snakeTransform;
 
     }
 
-    public GameObject CheckGridPosition(Vector2Int positionGrid)
-    {
-        if (grid[positionGrid.x, positionGrid.y] != null)
-        {
-            return grid[positionGrid.x, positionGrid.y];
-        }
-        return null;
-    }
-
+    /// <summary>
+    /// Public function that cleans the grid position by removing the game object reference.
+    /// </summary>
     public void CleanGridPosition(Vector2Int positionGrig)
     {
         grid[positionGrig.x, positionGrig.y] = null;
     }
 
+    /// <summary>
+    /// Public function that creates the grid with the specified size.
+    /// </summary>
     public void CreatGrid()
     {
         grid = new GameObject[gridSize, gridSize];
     }
 
-
+    /// <summary>
+    /// Public function that returns the size of the grid.
+    /// </summary>
     public int GetGridSize()
     {
         return gridSize;
     }
 
+    /// <summary>
+    /// Public function that triggers the spawning of a power-up game object at regular intervals.
+    /// </summary>
     public void SpawnObiectPower()
     {
         countGrid++;
