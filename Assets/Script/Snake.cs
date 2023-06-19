@@ -24,7 +24,7 @@ public class Snake : MonoBehaviour
 
     private void Start()
     {
-        grid = GetComponent<Grid>();
+        grid = gameObject.GetComponent<Grid>();
     }
 
     private Vector2Int ConwertToVector2Init(Vector2 vector)
