@@ -6,19 +6,26 @@ using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
-
-    [SerializeField]
     private Grid grid;
+
     private List<GameObject> snakeBody = new List<GameObject>();
 
     [SerializeField]
     private GameObject snakeBodyPrefab;
 
+    [HideInInspector]
     public bool addTail = false;
 
+    [HideInInspector]
     public bool destroyTail = false;
 
+    [HideInInspector]
     public bool MoveRevers = false;
+
+    private void Start()
+    {
+        grid = GetComponent<Grid>();
+    }
 
     private Vector2Int ConwertToVector2Init(Vector2 vector)
     {

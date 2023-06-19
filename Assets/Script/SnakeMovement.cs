@@ -4,29 +4,38 @@ using UnityEngine;
 
 public class SnakeMovement : MonoBehaviour
 {
-
     private IEnumerator carutinGame;
 
     private Vector2Int direction = Vector2Int.right;
 
     private bool gameRun = true;
 
-    [SerializeField]
     private Grid grid;
 
     private Vector2Int newDirection;
 
     private Vector2Int oldDirection;
 
-    [SerializeField]
     private Snake snake;
-    public KeyCode downKey;
 
-    public float interval = 1f; // Czas oczekiwania miêdzy wykonaniami korutyny
+    private float speed = 1f;
+
+    public float Speed
+    {
+        get { return speed; }
+        set { speed = value; }
+    }
+
+    public KeyCode downKey;
     public KeyCode leftKey;
     public KeyCode rightKey;
     public KeyCode upKey;
 
+
+    private void Start()
+    {
+        snake = GetComponent<Snake>();
+    }
 
     private void ChangePosition(Vector2Int position)
     {
@@ -83,7 +92,7 @@ public class SnakeMovement : MonoBehaviour
         {
             Move();
 
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSeconds(speed);
             grid.SpawnObiectPower();
         }
     }

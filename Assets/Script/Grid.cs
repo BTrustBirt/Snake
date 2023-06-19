@@ -13,7 +13,6 @@ public class Grid : MonoBehaviour
         private set;
     }
 
-    [SerializeField]
     private GameMenager gameMenager;
 
     private bool isOccupied;
@@ -22,6 +21,11 @@ public class Grid : MonoBehaviour
 
     [SerializeField]
     private ActionColision[] spawnObjeck;
+
+    private void Start()
+    {
+        gameMenager= GetComponent<GameMenager>();
+    }
 
     private void SpawnObject()
     {
@@ -35,7 +39,7 @@ public class Grid : MonoBehaviour
         {
             randgridX = Random.Range(0, grid.GetLength(0));
             randgridY = Random.Range(0, grid.GetLength(1));
-            // isOccupied = false;
+            
             if (grid[randgridX, randgridY] == null)
             {
                 countGrid = 0;
