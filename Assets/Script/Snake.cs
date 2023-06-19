@@ -58,34 +58,36 @@ public class Snake : MonoBehaviour
 
     public void MoveSnakeFoward(Vector2 movePosition)
     {
-        Vector2 prevPosition = snakeBody[0].transform.position;
+        grid.ChcekGridPosition(ConwertToVector2Init(movePosition));
 
+        Vector2 prevPosition = snakeBody[0].transform.position;
 
         for (int i = 0; i < snakeBody.Count; i++)
         {
             if (i == 0)
             {
                 grid.CleanGridPosition(ConwertToVector2Init(prevPosition));
-                snakeBody.First().transform.position = movePosition;
-                grid.AddToGrid(ConwertToVector2Init(movePosition), snakeBody.First());
+                snakeBody[i].transform.position = movePosition;
+                grid.AddToGrid(ConwertToVector2Init(movePosition), snakeBody[i]);
             }
             else
             {
                 grid.CleanGridPosition(ConwertToVector2Init(snakeBody[i].transform.position));
+                Vector3 currentPosition = snakeBody[i].transform.position;
                 snakeBody[i].transform.position = prevPosition;
                 grid.AddToGrid(ConwertToVector2Init(prevPosition), snakeBody[i]);
-                prevPosition = snakeBody[i].transform.position;
+                prevPosition = currentPosition;
             }
         }
 
         if (addTail)
         {
             addTail = false;
-            GameObject tempGameObiect = Instantiate(snakeBodyPrefab, prevPosition, Quaternion.identity);
-            snakeBody.Add(tempGameObiect);
-            grid.AddToGrid(ConwertToVector2Init(prevPosition), tempGameObiect);
-
+            GameObject tempGameObject = Instantiate(snakeBodyPrefab, prevPosition, Quaternion.identity);
+            snakeBody.Add(tempGameObject);
+            grid.AddToGrid(ConwertToVector2Init(prevPosition), tempGameObject);
         }
+
 
         if (destroyTail && snakeBody.Count > 1)
         {

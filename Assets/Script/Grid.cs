@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-
     private int countGrid;
 
     [field: SerializeField]
@@ -47,6 +46,17 @@ public class Grid : MonoBehaviour
                 AddToGrid(new Vector2Int(randgridX, randgridY), tempObject);
                 tempObject.GetComponent<ActionColision>().GetRef(gameMenager);
             }
+        }
+    }
+
+    public void ChcekGridPosition(Vector2Int position)
+    {
+        ActionColision tempAction;
+
+        if (grid[position.x,position.y] != null)
+        {
+            tempAction = grid[position.x,position.y].gameObject.GetComponent<ActionColision>();
+            tempAction.Use();
         }
     }
 
