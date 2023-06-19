@@ -6,7 +6,15 @@ public class SpeedTime : ActionColision
 {
     public override void Use()
     {
-        gameMenager.IngressSpeed();
+        if(gameMenager.SnakeMovement.Speed < 0.3f)
+        {
+            EffectObject();
+        }
+        else
+        {
+            gameMenager.SnakeMovement.Speed -= 0.2f;
+        }
+
         EffectObject();
     }
 }

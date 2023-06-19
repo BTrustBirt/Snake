@@ -21,7 +21,7 @@ public abstract class ActionColision : MonoBehaviour
     protected void EffectObject()
     {
         particleSystem.Play();
-        Invoke("destroyObject", 1f);
+        Invoke("destroyObject", gameMenager.SnakeMovement.Speed);
     }
 
     private void destroyObject()
