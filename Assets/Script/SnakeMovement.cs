@@ -94,7 +94,12 @@ public class SnakeMovement : MonoBehaviour
             Move();
 
             yield return new WaitForSeconds(speed);
-            grid.SpawnObiectPower();
+
+            if (gameRun)
+            {
+                grid.SpawnObiectPower();
+            }
+            
         }
     }
 
@@ -116,7 +121,7 @@ public class SnakeMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!Input.anyKey)
+        if (!Input.anyKey || !gameRun)
         {
             return;
         }
@@ -165,5 +170,10 @@ public class SnakeMovement : MonoBehaviour
     {
         get { return gameRun; }
         set { gameRun = value; }
+    }
+
+    public void GameOver()
+    {
+        StopCoroutine(ExampleCoroutine());
     }
 }

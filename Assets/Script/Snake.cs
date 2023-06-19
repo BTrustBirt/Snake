@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,9 +23,12 @@ public class Snake : MonoBehaviour
     [HideInInspector]
     public bool MoveRevers = false;
 
+    private GameMenager gameMenager;
+
     private void Start()
     {
         grid = gameObject.GetComponent<Grid>();
+        gameMenager = GetComponent<GameMenager>();
     }
 
     private Vector2Int ConwertToVector2Init(Vector2 vector)
@@ -42,6 +46,7 @@ public class Snake : MonoBehaviour
     {
         GameObject tempGameObiect = Instantiate(snakeBodyPrefab, transform, Quaternion.identity);
         snakeBody.Add(tempGameObiect);
+        gameMenager.CameraFallow(tempGameObiect.transform);
     }
 
     public GameObject GetPositionGameObiectFromGrid()
@@ -68,7 +73,7 @@ public class Snake : MonoBehaviour
         grid.ChcekGridPosition(ConwertToVector2Init(movePosition));
 
         Vector2 prevPosition = snakeBody[0].transform.position;
-
+        
         for (int i = 0; i < snakeBody.Count; i++)
         {
             if (i == 0)
@@ -93,13 +98,26 @@ public class Snake : MonoBehaviour
             GameObject tempGameObject = Instantiate(snakeBodyPrefab, prevPosition, Quaternion.identity);
             snakeBody.Add(tempGameObject);
             grid.AddToGrid(ConwertToVector2Init(prevPosition), tempGameObject);
+            tempGameObject.GetComponent<ActionColision>().GetRef(gameMenager);
         }
-
 
         if (destroyTail && snakeBody.Count > 1)
         {
             Destroy(snakeBody.Last().gameObject);
             snakeBody.RemoveAt(snakeBody.Count - 1);
         }
+    }
+
+    public void CleanSnake()
+    {
+        foreach (var item in snakeBody)
+        {
+            if (item != null)
+            {
+                Destroy(item);
+            }
+        }
+        snakeBody.Clear();
+        snakeBody = new List<GameObject>();
     }
 }

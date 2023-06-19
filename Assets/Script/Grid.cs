@@ -6,7 +6,6 @@ public class Grid : MonoBehaviour
 {
     private int countGrid;
 
-
     private int gridSize;
 
     public int GridSize
@@ -24,6 +23,8 @@ public class Grid : MonoBehaviour
 
     [SerializeField]
     private ActionColision[] spawnObjeck;
+
+    private GameObject[,] grid { get; set; }
 
     private void Start()
     {
@@ -63,11 +64,10 @@ public class Grid : MonoBehaviour
         if (grid[position.x,position.y] != null)
         {
             tempAction = grid[position.x,position.y].gameObject.GetComponent<ActionColision>();
+            
             tempAction.Use();
         }
     }
-
-    private GameObject[,] grid { get; set; }
 
     public void AddToGrid(Vector2Int positionGrig, GameObject snakeTransform)
     {
@@ -109,5 +109,22 @@ public class Grid : MonoBehaviour
             isOccupied = true;
             SpawnObject();
         }
+    }
+
+    public void CleanGrid()
+    {
+        
+        for (int i = 0; i < grid.GetLength(0); i++)
+        {
+            for (int j = 0; j < grid.GetLength(1); j++)
+            {
+                if (grid[i, j] != null) 
+                {
+                    Destroy(grid[i, j].gameObject);
+                    grid[i, j] = null;
+            }   }
+        }
+
+        grid = null;
     }
 }
