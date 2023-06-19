@@ -16,7 +16,7 @@ public class GameMenager : MonoBehaviour
     public SnakeMovement SnakeMovement;
 
     [SerializeField]
-    private GameObject canvas;
+    private GameObject playFilds;
 
     [SerializeField]
     private TMP_Text textGridSize;
@@ -30,17 +30,20 @@ public class GameMenager : MonoBehaviour
     [SerializeField]
     private CinemachineVirtualCamera camera;
 
+    private SpriteRenderer spriteRenderer;
+
     private void Start()
     {
         Grid = GetComponent<Grid>();
         SnakeMovement = GetComponent<SnakeMovement>();
         Snake = GetComponent<Snake>();
 
-        canvas.SetActive(true);
+        playFilds.SetActive(false);
         panelGameUp.SetActive(true);
         panelGameOver.SetActive(false);
         Grid.GridSize = 16;
         SchowGridSizeText();
+        spriteRenderer = playFilds.GetComponent<SpriteRenderer>();
     }
 
     public void GridAdd()
@@ -78,7 +81,13 @@ public class GameMenager : MonoBehaviour
 
         Snake.CreatSnakeHead(vec);
 
-        canvas.SetActive(false);
+        Vector3 spritsize = new Vector3(Grid.GetGridSize(), Grid.GetGridSize(), 1);
+        spriteRenderer.transform.localScale= spritsize;
+        spriteRenderer.transform.localPosition = new Vector3((Grid.GetGridSize() / 2) -0.5f,(Grid.GetGridSize() / 2) -0.5f, 1f);
+       
+        playFilds.SetActive(true);
+
+        panelGameUp.SetActive(false);
 
         SnakeMovement.StartGame();
     }
@@ -99,7 +108,7 @@ public class GameMenager : MonoBehaviour
     public void GameOver()
     {
         SnakeMovement.GameRun = false;
-        canvas.SetActive(true);
+        playFilds.SetActive(false);
         panelGameOver.SetActive(true);
         SnakeMovement.GameOver();
     }
